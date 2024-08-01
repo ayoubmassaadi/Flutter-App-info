@@ -3,6 +3,9 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+    // Ajoutez le plugin Gradle des services Google
+    id 'com.google.gms.google-services'
+   
 }
 
 def localProperties = new Properties()
@@ -56,3 +59,15 @@ android {
 flutter {
     source = "../.."
 }
+dependencies {
+// Importez la BoM Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+
+    // Ajoutez les dépendances pour les produits Firebase que vous souhaitez utiliser
+    // Lorsque vous utilisez la BoM, ne spécifiez pas de versions dans les dépendances Firebase
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Ajoutez les dépendances pour tout autre produit Firebase souhaité
+    // Consultez https://firebase.google.com/docs/android/setup#available-libraries pour les bibliothèques disponibles
+}
+apply plugin: 'com.google.gms.google-services'

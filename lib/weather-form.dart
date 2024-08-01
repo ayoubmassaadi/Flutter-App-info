@@ -7,35 +7,33 @@ class WeatherForm extends StatefulWidget {
 }
 
 class _WeatherFormState extends State<WeatherForm> {
-  String city = "";
-  TextEditingController cityEditingController = new TextEditingController();
+  String city = ""; // Initialiser le champ city
+  TextEditingController cityEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(city.isNotEmpty ? city : 'Weather'),
+        title: Text(city.isNotEmpty ? city : 'Weather App'),
         backgroundColor: Colors.deepOrangeAccent,
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextField(
-                decoration: InputDecoration(hintText: 'Tape a City..'),
-                controller: cityEditingController,
-                onChanged: (String str) {
-                  setState(() {
-                    city = str;
-                  });
-                },
-                onSubmitted: (String str) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Weather(city)));
-                  cityEditingController.text = "";
-                },
-              ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              decoration: InputDecoration(hintText: 'Tape a City..'),
+              controller: cityEditingController,
+              onChanged: (String str) {
+                setState(() {
+                  city = str;
+                });
+              },
+              onSubmitted: (String str) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Weather(city: city))); // Passer la ville au constructeur de Weather
+                cityEditingController.clear();
+              },
             ),
           ),
           Container(
@@ -47,9 +45,9 @@ class _WeatherFormState extends State<WeatherForm> {
                 foregroundColor: Colors.white, backgroundColor: Colors.deepOrangeAccent,
               ),
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => Weather(city)));
-                cityEditingController.text = "";
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Weather(city: city))); // Passer la ville au constructeur de Weather
+                cityEditingController.clear();
               },
             ),
           ),
